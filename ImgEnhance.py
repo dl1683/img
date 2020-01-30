@@ -21,7 +21,7 @@ def main():
     vi.convertVidToImg(root.filename)
     iv.convertImgToVid()
     """
-    filename=r"C:\Users\Devansh\Desktop\Projects\img\test2.jpeg"
+    filename=r"C:\Users\Devansh\Desktop\Projects\img\test3.jpg"
     height,width=iv.convertToText(filename)
     iv.convertToImg(height,width) 
 
