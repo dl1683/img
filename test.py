@@ -1,4 +1,8 @@
-
+import glob
+import os
+from txt import *
+from sklearn.externals import joblib
+from string import ascii_uppercase
 def createNew(f1):
     """
     Create a new file storing the good way to store the image details
@@ -30,64 +34,78 @@ def main():
 #main()
 
 pixel=[0,0,0]
-def stringify(pixel):
-    return (float(str(pixel[0])+str(pixel[1])+str(pixel[2])))
 
-def isValidDecomp(num,decmp,left):
-    print("Sending",num[pos:pos+length],"for params num:",num,"lenght:",length,"pos: ",pos )
-    if(len(num)-len(decmp)>=left):
-        if(int(decmp)<256):
-            return True
-    return False
-
-def splitter(s):
-    for i in range(1, len(s)):
-        start = s[0:i]
-        end = s[i:]
-        yield (start, end)
-        for split in splitter(end):
-            result = [start]
-            result.extend(split)
-            yield tuple(result)
-
-def getDecomps(s):
-    return [x for x in splitter(s) if len(x) == 3 and all((len(y) <= 3 ) for y in x)]
-
-def average(num):
+def predict(gr):
     """
-    Given a string containing possible RGB vals, create an average value distribution
+    Weight all the neural nets and work it out
+    @param: ungrayed pixel
+    @return: the averaged vals
     """
-    colors=[0,0,0]#default
-    num=clean(num)
-    decomps=getDecomps(str(int(num)))
-    print(decomps)
-    for i in range(3): #r,g,b
-        count=0
-        for y in decomps:
-            colors[i]+=int(y[i])
-            count+=1
-        colors[i]=colors[i]//count
-        if(colors[i]>255):
-            colors[i]=255
-    return colors
+    r,g,b=0,0,0
+    trainers=list(os.listdir(r"C:\Users\Devansh\Desktop\Projects\img\TrainedData"))
+    d=r"C:\Users\Devansh\Desktop\Projects\img\TrainedData"
+    l=len(trainers)
+    i=0
+    types=l
 
-def clean(num):
-    s=str(num)
-    l=list(s)
-    for char in s:
-        if not (char.isdigit()) :
-            l.remove(char)
-    new=""
-    for char in l:
-        new=new+str(char)
+    x=[gr]
+    while(i< types ):
+        t=d+"/"+ trainers[i]
+        clf = joblib.load(t)
+        pred=clf.predict(x)[0]
+        
+        print(pred)
+        b+=pred[2]
+        g+=pred[1]
+        r+=pred[0]
+        
+        i+=1
+        
+    r=r//(types)
+    g=g//(types)
+    b=b//(types)
+    prediction= [r,g,b ]
+    return prediction 
+
+
+
+def check():
+    neighbors=['T','T','T','T','M','M','A','H','M']
+    #colors=colors[:20]
+    for index in range(0,len(neighbors),1):
+        #TODO: work on the stupid ungraying
+        #print("Color:",colors[index])
+        neighbors[index]=decodeGrey(neighbors[index])#ungrat
     
-    if(len(new)>9):
-        new=new[0:9]
-    print(l,new)
-    return new
+    prediction=predict(neighbors)
+    print(prediction,neighbors)
 
-d=average('[26330333.4178834]')
-print(d)
+def buildList():
+    l=[[],[],[],[],[],[]]
+    ind=0
+    c=list()
+    for i in range(6):
+        for j in range(6):
+            l[i].append(ind)
+            c.append(ind)
+            ind+=1
+    return (l,c)
 
+def a():
+    #confirm indexing of my arrays
+    load,colors=buildList()
+    print(load)
+    i,j=2,2
+    width=6
+    neighbours=[ colors[ width*(i-1) +j],colors[width*(i) +j-1],colors[width*(i-1) +j-1],colors[width*(i) +j],colors[width*(i) +j+1],colors[width*(i+1) +j+1],colors[width*(i+1) +j],colors[width*(i+1) +j-1], colors[width*(i-1) +j+1] ] #list of neighbors
+    neighbours2=[ load[i-1][j],load[i][j-1],load[i-1][j-1],load[i][j],load[i][j+1],load[i+1][j+1],load[i+1][j],load[i+1][j-1], load[i-1][j+1] ] #list of neighbors
+    #neighbours.sort()
+    #neighbours2.sort()
+    print(neighbours)
+    print(neighbours2)
+
+d=list()
+d.append([1,2,3])
+a()
 
         

@@ -21,8 +21,13 @@ def main():
     vi.convertVidToImg(root.filename)
     iv.convertImgToVid()
     """
-    filename=r"C:\Users\Devansh\Desktop\Projects\img\test3.jpg"
-    height,width=iv.convertToText(filename)
-    iv.convertToImg(height,width) 
+    root = Tk()
+    root.filename =  filedialog.askopenfilename(initialdir = "/",title = "Select file",filetypes = (("Img files","*.png .jpg .jpeg .jfif"),("all files","*.*")))
+    height,width=iv.convertToText(root.filename)
+    index=str(root.filename).index('.')
+    ext=str(root.filename)[index:]
+    iv.convertToImg(height,width,ext)
+    r=r"C:\Users\Devansh\Desktop\Projects\img\tested.jpg" 
+    #iv.processImg(r,'jpg')
 
 main()
