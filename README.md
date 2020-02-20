@@ -147,16 +147,16 @@ run the risk of overfitting. However, it has potential to work wonders to genera
 
 <h3>Images comparison</h3>
 <b>Originals</b><br>
-<img src="smol.png" alt="Smol" height="42" width="42">
-<img src="smol2.png" alt="Sm2" height="42" width="42">
+<img src="smol.png" alt="Smol" height="100" width="100">
+<img src="smol(2).png" alt="Sm2" height="100" width="100">
 <br>
 <b>GrayScaled</b><br>
-<img src="BlackAndWhitesmol.png" alt="Sm2" height="42" width="42">
-<img src="BlackAndWhitesmol(2).png" alt="Sm2" height="42" width="42">
+<img src="BlackAndWhitesmol.png" alt="Sm2" height="100" width="100">
+<img src="BlackAndWhitesmol(2).png" alt="Sm2" height="100" width="100">
 <br>
 <b>Recolored (from black and white)</b><br>
-<img src="testedsmol(2).png.png" alt="Sm2" height="42" width="42">
-<img src="testedsmol.png.png" alt="Sm2" height="42" width="42">
+<img src="testedsmol(2).png.png" alt="Sm2" height="100" width="100">
+<img src="testedsmol.png.png" alt="Sm2" height="100" width="100">
 
 <h3>Recommended Things/Bibliograhy</h3>
 <p>
