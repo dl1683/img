@@ -148,6 +148,8 @@ run the risk of overfitting. However, it has potential to work wonders to genera
 </p>
 
 <h3>Images comparison</h3>
+I have 3 different images that I tested with. Each has distinct features to test the ability of the recreation function. Smol 3 in particular is a very complex image with changes in shading, and a hard shapes. The image is recreated pretty faithfully and we can conclude that by applying some generative functions and gamma corrections, we will get a faithful approximation of the original image.  
+. The colored dots in the recreated images are places where the shading of the image changes by a certain amount. I will work on minimizing error there. <br>
 <b>Originals</b><br>
 Image 1:
 <img src="smol.png" alt="Smol" height="100" width="100">
@@ -160,8 +162,7 @@ Image 3:
 
 <br>
 <b>GrayScaled</b><br>
-I have 3 different images that I tested with. Each has distinct features to test the ability of the recreation function. Smol 3 in particular is a very complex image with changes in shading, and a hard shapes. The image is recreated pretty faithfully and we can conclude that by applying some generative functions and gamma corrections, we will get a faithful approximation of the original image.  
-<br>
+
 Image 1
 <img src="BlackAndWhitesmol.png" alt="Sm2" height="100" width="100">
                     
