@@ -8,7 +8,9 @@ The inspiration for this project is simple, cut down image(and eventually video)
 would be able to drastically cut down their storage space. This is done by changing the image into a text file. Since text files are easier 
 to compress and transmit, a business would simply store the text on a server. On the front end, this text is then converted to an image. 
 This will cut down the storage space required for any business. By saving the text of a grayscaled image (instead of fully colored one), a company
-(like AlgoExpert) will be able to really cut down storage space. 
+(like AlgoExpert) will be able to really cut down storage space. The project is able to create the essence of the image but isn't able to capture the the subtelty of the relative shading between pixels. However, it is able to create a reasonable image, especially given the constraints<br>
+     
+      All in all, this project was really hard to do. Figuring out what I wanted took a lot of time. I spent almost all my free time(when I had the ability) working on the project and trying to take different approaches to solve this problem. I've rewritten almost the whole project from scratch multiple times to try multiple apporaches. However, I'm glad I did it. This project has taught me a lot, and I plan on seeing it through to completion. I'm glad that I could build a working proof of concept that
 
 </p>
 
@@ -26,7 +28,7 @@ This project converts a picture into text . While converting an image into text,
 into grayscale. Grayscaled texts require lesser space and easier to compress than colored ones since the grayscaling algorithm changes 
 [r,g,b]-->[val] where 0<=r,g,b<=255 and 0<=val<=1. Doing so changes a 3-dimensional space (r,g,b) into a single dimensional space. Therein lies
 the problem; there's infinite (literally) solns to any given configuration (in this case infinite ways to get any  grayscaled value from [r,g,b]). To reconvert a grayscale image into color (black and white to color) is impossible (from a mathematical standpoint). By using machine learning of some sort however, one can hope to create reasonable approximations of an image. <br>
-  All in all, this project was really hard to do. Figuring out what I wanted took a lot of time. I spent almost all my free time(when I had the ability) working on the project and trying to take different approaches to solve this problem. I've rewritten almost the whole project from scratch multiple times to try multiple apporaches. However, I'm glad I did it. This project has taught me a lot, and I plan on seeing it through to completion. I'm glad that I could build a working proof of concept that
+ 
 </p>
 
 <h3>Theoretical Challenges</h3>
@@ -154,10 +156,12 @@ Image 1:
 <img src="smol(2).png" alt="Sm2" height="100" width="100">
 
 Image 3:
-<img src="smol(3).png" alt="Sm2" height="100" width="100">
+<img src="smol(3).jpg" alt="Sm2" height="100" width="100">
 
 <br>
 <b>GrayScaled</b><br>
+I have 3 different images that I tested with. Each has distinct features to test the ability of the recreation function. Smol 3 in particular is a very complex image with changes in shading, and a hard shapes. The image is recreated pretty faithfully and we can conclude that by applying some generative functions and gamma corrections, we will get a faithful approximation of the original image.  
+<br>
 Image 1
 <img src="BlackAndWhitesmol.png" alt="Sm2" height="100" width="100">
                     
@@ -165,7 +169,7 @@ Image 2
 <img src="BlackAndWhitesmol(2).png" alt="Sm2" height="100" width="100">
 
 Image 3
-<img src="BlackAndWhitesmol(3).png" alt="Sm2" height="100" width="100">
+<img src="BlackAndWhitesmol(3).jpg" alt="Sm2" height="100" width="100">
 <br>
 
 <b>Recolored (from black and white)</b><br>
@@ -176,7 +180,7 @@ Image 2
 <img src="testedsmol(2).png" alt="Sm2" height="100" width="100">
 
 Image 3
-<img src="testedsmol(3).png" alt="Sm2" height="100" width="100">
+<img src="testedsmol(3).jpg" alt="Sm2" height="100" width="100">
 <br>
 
 <h3>Recommended Things/Bibliograhy</h3>
