@@ -155,8 +155,8 @@ run the risk of overfitting. However, it has potential to work wonders to genera
 <img src="BlackAndWhitesmol(2).png" alt="Sm2" height="100" width="100">
 <br>
 <b>Recolored (from black and white)</b><br>
-<img src="testedsmol(2).png.png" alt="Sm2" height="100" width="100">
 <img src="testedsmol.png.png" alt="Sm2" height="100" width="100">
+<img src="testedsmol(2).png.png" alt="Sm2" height="100" width="100">
 
 <h3>Recommended Things/Bibliograhy</h3>
 <p>
