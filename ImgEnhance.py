@@ -26,10 +26,11 @@ def main():
     height,width=iv.convertToText(root.filename)
     index=str(root.filename).index('.')
     ext=str(root.filename)[index:]
+    sl=str(root.filename).index('/',32)
+    name=str(root.filename)[sl+5:]
     
-    #build both to compare
-    iv.blackAndWhite(height,width,ext)
-    iv.convertToImg(height,width,ext)
+    iv.blackAndWhite(height,width,name,ext)
+    iv.convertToImg(height,width,name,ext)
     r=r"C:\Users\Devansh\Desktop\Projects\img\tested.jpg" 
     
     #iv.processImg(r,'jpg')

@@ -110,12 +110,16 @@ def predict(gr):
         g+=pred[1]
         r+=pred[0]
         
-        gamma= (0.3 * r + 0.3 * g + 0.3 * b)
+    
 
         i+=1
-    r=abs(r)
-    g=abs(g)
-    b=abs(b)
+    #by adjusting the values and scaling them, we can reduce the effects of overfitting. 
+    gamma= (r +g + b)/255 +random.randrange(50,100) #optimize
+    print(gamma)
+    r=(random.randrange(int((r-gamma-1)),int(r+gamma)+1 ))/types
+    g=(random.randrange((int(g-gamma-1)),int(g+gamma)+1 ))/types
+    b=(random.randrange((int(b-gamma-1)),int(b+gamma)+1 ))/types
+    """
     print("Created: ",r,g,b)
     correction=(.2126*random.randrange(0,int(r)+1)+.7152*random.randrange(0,int(g)+1)+0.722*random.randrange(0,int(b)+1))
     print(correction)
@@ -127,16 +131,19 @@ def predict(gr):
     
     prediction= [r,g,b ]
     print("Weighed", r,g,b)
+    """
+    prediction=[r,g,b]
     for i in range (len(prediction)):
         if(prediction[i]>255):
-            #prediction[i]-=255
-            pass
+            prediction[i]%=255 #build equivalence classes for predictions
         elif(prediction[i]<0):
-            prediction[i]=0
+            prediction[i]*=-1
+            if(prediction[i]>255):
+                prediction[i]%=255 #build equivalence classes for predictions
         
     return prediction 
 
-def blackAndWhite(height,width,ext):
+def blackAndWhite(height,width,name,ext):
     """
     Create the grayScale image with the file
     """
@@ -165,12 +172,12 @@ def blackAndWhite(height,width,ext):
             j=0
             i+=1
             
-    cv2.imwrite("BlackAndWhite"+ext,blank_image)
+    cv2.imwrite("BlackAndWhite"+name+ext,blank_image)
     cv2.destroyAllWindows()
 
 
 
-def convertToImg(height,width,ext):
+def convertToImg(height,width,name,ext):
     file1=open(r"C:\Users\Devansh\Desktop\Projects\img\test2.txt")
     blank_image = np.zeros((height,width,3), np.uint8)
     i=1 #height index
@@ -199,6 +206,6 @@ def convertToImg(height,width,ext):
             
     cv2.imshow("Get Wrecked Shree", blank_image)
     cv2.waitKey(0)
-    cv2.imwrite("tested"+ext,blank_image)
+    cv2.imwrite("tested"+name+ext,blank_image)
     cv2.destroyAllWindows()
 
