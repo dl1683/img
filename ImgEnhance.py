@@ -27,7 +27,7 @@ def main():
     index=str(root.filename).index('.')
     ext=str(root.filename)[index:]
     sl=str(root.filename).index('/',32)
-    name=str(root.filename)[sl+5:]
+    name=str(root.filename)[sl+5:index]
     
     iv.blackAndWhite(height,width,name,ext)
     iv.convertToImg(height,width,name,ext)
