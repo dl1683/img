@@ -14,9 +14,9 @@ This will cut down the storage space required for any business. By saving the te
 
 <h3>Who Am I?</h3>
 <p>
-  ![I'm Batman]()
-Here's my information: https://people.rit.edu/dl1683/#projects
-Looking for summer co-ops
+     <img src="https://github.com/dl1683/img/blob/master/look-im-batman-lol-19465195.png" alt="I'm Batman" ><br>
+Here's my information: https://people.rit.edu/dl1683/#projects<bt>
+Looking for summer co-ops. Pls hire me.
  </p>
 
 <h3>What this project does</h3>
@@ -25,9 +25,8 @@ Looking for summer co-ops
 This project converts a picture into text . While converting an image into text, it changes the image 
 into grayscale. Grayscaled texts require lesser space and easier to compress than colored ones since the grayscaling algorithm changes 
 [r,g,b]-->[val] where 0<=r,g,b<=255 and 0<=val<=1. Doing so changes a 3-dimensional space (r,g,b) into a single dimensional space. Therein lies
-the problem; there's infinite (literally) solns to any given configuration (in this case infinite ways to get any  grayscaled values). To reconvert a 
-grayscale image into color (black and white to color) is impossible (from a mathematical standpoint). By using machine learning 
-of some sort however, one can hope to create reasonable approximations of an image.  
+the problem; there's infinite (literally) solns to any given configuration (in this case infinite ways to get any  grayscaled value from [r,g,b]). To reconvert a grayscale image into color (black and white to color) is impossible (from a mathematical standpoint). By using machine learning of some sort however, one can hope to create reasonable approximations of an image. <br>
+  All in all, this project was really hard to do. Figuring out what I wanted took a lot of time. I spent almost all my free time(when I had the ability) working on the project and trying to take different approaches to solve this problem. I've rewritten almost the whole project from scratch multiple times to try multiple apporaches. However, I'm glad I did it. This project has taught me a lot, and I plan on seeing it through to completion. I'm glad that I could build a working proof of concept that
 </p>
 
 <h3>Theoretical Challenges</h3>
@@ -145,6 +144,19 @@ run the risk of overfitting. However, it has potential to work wonders to genera
 </ul>
 
 </p>
+
+<h3>Images comparison</h3>
+<b>Originals</b><br>
+<img src="smol.png" alt="Smol" height="42" width="42">
+<img src="smol2.png" alt="Sm2" height="42" width="42">
+<br>
+<b>GrayScaled</b><br>
+<img src="BlackAndWhitesmol.png" alt="Sm2" height="42" width="42">
+<img src="BlackAndWhitesmol(2).png" alt="Sm2" height="42" width="42">
+<br>
+<b>Recolored (from black and white)</b><br>
+<img src="testedsmol(2).png.png" alt="Sm2" height="42" width="42">
+<img src="testedsmol.png.png" alt="Sm2" height="42" width="42">
 
 <h3>Recommended Things/Bibliograhy</h3>
 <p>
