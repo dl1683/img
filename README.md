@@ -12,9 +12,16 @@ This will cut down the storage space required for any business. By saving the te
 
 </p>
 
+<h3>Who Am I?</h3>
+<p>
+  ![I'm Batman]()
+Here's my information: https://people.rit.edu/dl1683/#projects
+Looking for summer co-ops
+ </p>
 
 <h3>What this project does</h3>
 <p>
+  Youtube Vid: 
 This project converts a picture into text . While converting an image into text, it changes the image 
 into grayscale. Grayscaled texts require lesser space and easier to compress than colored ones since the grayscaling algorithm changes 
 [r,g,b]-->[val] where 0<=r,g,b<=255 and 0<=val<=1. Doing so changes a 3-dimensional space (r,g,b) into a single dimensional space. Therein lies
@@ -56,9 +63,31 @@ severs. Unfortunately they restrict the resources we can use (40Mb). I needed th
 my ideas (GANS, CNNS, Hill Climbing, RandomForest, pathfinding, and Association learning). I also couldn't test on the servers. Thus I decided to serialize
 my models while testing(on the server), and actually test my solutions on my PC.
 </ul>
+<ul>
+  <b>Central Limit Threorem</b> Because of the the nature of deriving pixels from neighbors the individual rgb values would each tend towards a certain value. This meant that directly using the predict function with the neighbors would return a less grayed (still gray value).  
+</ul>
 </p>
 
-<h3>Code overview</h3>
+<h3>Important Code Bits</h3>
+<p>
+  Following are the important (and not obvious parts of my code). They are really important to my code. 
+<ul>
+<b><Gamma Param randomizer</b>: Imgs.py (117-120). This piece of code is responsible for most of the output in terms of color. The randomized Gamma param is used to ungray the grayed r,g,b vals. Unfortunalately, randomness also adds a lot of noise. By using constrained optimization we can minimize this problem(done implicitly to calculate the randomness range, alongside trial and error). However, to get rid the noise, I would have to implement Gaussian Denoising and edge detection. To do so, requires computing, which I hope to gain by presenting this soln. as a proof of concept to our great and groundbreaking faculty.       
+</ul>
+
+<ul>
+<b>Handling a 2D array and 1 D array in 1 loop</b>: Imgs.py (190 and 203-205). I had to read a 1D array (list of all grayscale vals saved in the most efficient text form possible) and  also a 2D array (the image itself). Furthermore, I needed to calculate the 
+  corresponding  1d locations of the 2D image neighbors. All of this required some mental and algebriac gymnastics but I figured it 
+  out in the end. To not have to loop over the text (list) and then [i,j] 2-D Arr, I went back to counting and treated the len(l) as a number of base (width of picture). Then I could treat i,j accordingly and I needed only 1 for loop for the entire process (complexity O(n^2) instead of O(2n^2) with a lot more  memory used or O(n^4) with the same amount of memory as my current soln.) This part was really easy to implement when I figured out what to do and the formulae.         
+</ul>
+
+<ul>
+<b>All of Train.py</b>: Nothing else would be possible without the ability to serialize the models. It let me train over the server and save my laptop.         
+</ul>
+
+</p>
+
+<h3>File overview</h3>
 <p>
 I have a lot of files. This is what they do: 
 <ul>
