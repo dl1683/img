@@ -4,7 +4,7 @@ from txt import *
 from sklearn.externals import joblib
 import os
 from PIL import Image as img
-import math 
+import math,random 
 import cv2 #didn't want to go through the trouble of redoing this a 100 times. 
 
 def convertImgToVid():
@@ -98,8 +98,8 @@ def predict(gr):
     d=r"C:\Users\Devansh\Desktop\Projects\img\TrainedData"
     l=len(trainers)
     i=0
-    types=l
-
+    types=len(trainers)
+    gamma=0
     x=[gr]
     while(i< types ):
         t=d+"/"+ trainers[i]
@@ -110,48 +110,63 @@ def predict(gr):
         g+=pred[1]
         r+=pred[0]
         
+        gamma= (0.3 * r + 0.3 * g + 0.3 * b)
+
         i+=1
-        
-    r=abs(r)//(types)
-    g=abs(g)//(types)
-    b=abs(b)//(types)
+    r=abs(r)
+    g=abs(g)
+    b=abs(b)
+    print("Created: ",r,g,b)
+    correction=(.2126*random.randrange(0,int(r)+1)+.7152*random.randrange(0,int(g)+1)+0.722*random.randrange(0,int(b)+1))
+    print(correction)
+    
+    #to use when I start testing and building my model with error calculations
+    r=(random.randrange(abs(int(r-2*correction)),int(r+1+2*correction)))/(types)
+    g=(random.randrange(abs(int(g-2*correction)),int(g+1+2*correction)))/(types)
+    b=(random.randrange(abs(int(b-2*correction)),int(b+1+2*correction)))/(types)
+    
     prediction= [r,g,b ]
+    print("Weighed", r,g,b)
+    for i in range (len(prediction)):
+        if(prediction[i]>255):
+            #prediction[i]-=255
+            pass
+        elif(prediction[i]<0):
+            prediction[i]=0
+        
     return prediction 
 
-def processImg(img,ext):
-    load=cv2.imread(img)
-    height, width, layers = load.shape
-    blank_image = np.zeros((height,width,3), np.uint8)
+def blackAndWhite(height,width,ext):
+    """
+    Create the grayScale image with the file
+    """
     file1=open(r"C:\Users\Devansh\Desktop\Projects\img\test2.txt")
+    blank_image = np.zeros((height,width,3), np.uint8)
+    i=0 #height index
+    j=0 #width index
     colors=list(file1.read())
+    for index in range(0,len(colors),1):
+        
 
-    #print(height,width, layers)
-    for i in range(1,height-1):
-        for j in range(1,width-1):
-            #print("Moved pixels",i,j)
-            #sPixel.append( int(str(pixel[0])+str(pixel[1])+str(pixel[2])) )
-            neighbours=[ load[i-1,j],load[i,j-1],load[i-1,j-1],load[i,j],load[i,j+1],load[i+1,j+1],load[i+1,j],load[i+1,j-1], load[i-1,j+1] ] #list of neighbors
-            #get 3 seperate
-            gray=list()
+        """
+        r=decode(colors[index])
+        g=decode(colors[index+1])
+        b=decode(colors[index+2])
+        prediction=[r,g,b]
+        """
+        ga=decodeGrey(colors[index])*255
+        print(colors[index],ga)
+        blank_image[i][j]=[ga,ga,ga]
+        
+        if ( j<width-1 ):
+            j+=1
             
-            for pixel in neighbours:
-                #text=text+(encode(str(pixel[0]))+encode(str(pixel[1]))+encode(str(pixel[2]))) #text           
-                gray.append(grayScale(pixel))
+        else:
+            j=0
+            i+=1
             
-            prediction=predict(gray)
-            print(prediction)
-            blank_image[i][j]=prediction
-
-            
-                #print("Fitting:",x,sPixel)
-                #file1.write('\n')
-    
-    cv2.imshow("Get Wrecked Shree", blank_image)
-    cv2.waitKey(0)
-    cv2.imwrite("tested"+ext,blank_image)
+    cv2.imwrite("BlackAndWhite"+ext,blank_image)
     cv2.destroyAllWindows()
-
-    return (height,width)
 
 
 
@@ -162,33 +177,24 @@ def convertToImg(height,width,ext):
     j=1 #width index
     colors=list(file1.read())
     for index in range(width,len(colors)-width-2,1):
-        #TODO: work on the stupid ungraying
-        #print("Color:",colors[index])
-        #prediction=predict(decodeGrey(colors[index]))
-        print(i,j,len(colors),width,index)
+        
+        #print(i,j,len(colors),index,width)
+        
         neighbours=[ colors[ width*(i-1) +j],colors[width*(i) +j-1],colors[width*(i-1) +j-1],colors[width*(i) +j],colors[width*(i) +j+1],colors[width*(i+1) +j+1],colors[width*(i+1) +j],colors[width*(i+1) +j-1], colors[width*(i-1) +j+1] ] #list of neighbors
-        print(neighbours)
+        
         for index in range(0,len(neighbours),1):
-        #TODO: work on the stupid ungraying
-        #print("Color:",colors[index])
             neighbours[index]=decodeGrey(neighbours[index])#ungray
         
         prediction=predict(neighbours)
-        print(prediction)
+        print("pred",prediction)
 
-        """
-        r=decode(colors[index])
-        g=decode(colors[index+1])
-        b=decode(colors[index+2])
-        prediction=[r,g,b]
-        """
         blank_image[i][j]=prediction
         
         if ( j<width-1 ):
             j+=1
             
         else:
-            j=0
+            j=0 #skip the first column
             i+=1
             
     cv2.imshow("Get Wrecked Shree", blank_image)

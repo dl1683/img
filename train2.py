@@ -10,6 +10,8 @@ from tkinter import *
 from sklearn import neural_network,ensemble,gaussian_process
 from sklearn import isotonic, neighbors, multioutput
 
+
+
 def getNames():
     for i in trainers:
         names.append(str(i))
@@ -33,19 +35,15 @@ def trainData(dir):
     for img in imgList:
         processImg(img,dumpingGround)
         print("Moved imgs")
-        break
-    """
-    print("X",x[0])
-    print("Y",pixels[0])
-    """
+    
     for i in range (0,len(trainers)):
-        print("Fitting model",names[i])
-        #multioutput.MultiOutputRegressor(clfB[i]).fit(x,pixels)
-        (clfB[i]).fit(x,pixels)        
+        multioutput.MultiOutputRegressor(clfB[i]).fit(x,pixels)
+        print("Fitting blue")
         print("Dumping",names[i])
-        joblib.dump(clfB[i],dumpingGround+r"/"+(names[i])[:10])
-    
-    
+        joblib.dump(clfR[i],dumpingGround+r"/trainRed"+(names[i])[:10] )
+        joblib.dump(clfB[i],dumpingGround+r"/trainBlue"+(names[i])[:10])
+        joblib.dump(clfG[i],dumpingGround+r"/trainGreen"+(names[i])[:10])
+
 def processImg(img,dumpingGround):
     load=cv2.imread(img)
     height, width, layers = load.shape
@@ -53,7 +51,7 @@ def processImg(img,dumpingGround):
     #print(height,width, layers)
     for i in range(1,height-1):
         for j in range(1,width-1):
-            #print("Moved pixels",i,j)
+            print("Moved pixels",i,j)
             #sPixel.append( int(str(pixel[0])+str(pixel[1])+str(pixel[2])) )
             neighbours=[ load[i-1,j],load[i,j-1],load[i-1,j-1],load[i,j],load[i,j+1],load[i+1,j+1],load[i+1,j],load[i+1,j-1], load[i-1,j+1] ] #list of neighbors
             #get 3 seperate
@@ -63,31 +61,22 @@ def processImg(img,dumpingGround):
                 #text=text+(encode(str(pixel[0]))+encode(str(pixel[1]))+encode(str(pixel[2]))) #text           
                 gray.append(grayScale(pixel))
             
-            #print(gray)
-            #print(gray)
             x.append(gray)
-            px=load[i,j]
-            pixels.append([px[0],px[1],px[2]])
-            """
-            if(j==3):
-                print(pixels)
-                return
+            pixels.append(load[i,j])
                 #print("Fitting:",x,sPixel)
                 #file1.write('\n')
-            """
-        
     return (height,width)
 
-#gaussian_process.GaussianProcessRegressor(),ensemble.RandomForestRegressor()
-trainers=[gaussian_process.GaussianProcessRegressor(),linear_model.LinearRegression(),neighbors.KNeighborsRegressor(),neural_network.MLPRegressor()]
+
+trainers=[gaussian_process.GaussianProcessRegressor(),linear_model.LinearRegression(),neural_network.MLPRegressor(),neighbors.KNeighborsRegressor()]
 names=list()
 names=getNames()
+clfR = trainers.copy()
 clfB = trainers.copy()
-
+clfG=trainers
 pixels=list()
 x=list()
 
 root = Tk()
 dirname = filedialog.askdirectory(parent=root,initialdir="/",title='Please select the image directory')
-#dirname=r"/home/stu2/s15/dl1683/Courses/img"
 trainData(dirname)

@@ -93,18 +93,6 @@ def ungray(n):
     #TODO: find the actual probability distribution.
     return int(n*255)
 
-def main():
-    #print(encode('255'))
-    #print(decode('h'))
-    #print(grayScale([125,115,125]))
-    for i in range(21):
-        g=decodeGrey(chars[i])
-        ga=ungray(g)
-        print(chars[i],g,ga,grayScale([ga,ga,ga]))
-    print(colorMap)
-
-if __name__ == "__main__":
-    main()
 
 def stringify(pixel):
     return (int(str(pixel[0])+str(pixel[1])+str(pixel[2])))
@@ -174,3 +162,19 @@ def clean(num):
         new=new[0:9]
     #print(l,new)
     return new
+
+
+def main():
+    #print(encode('255'))
+    #print(decode('h'))
+    #print(grayScale([125,115,125]))
+    for i in range(21):
+        g=decodeGrey(chars[i])
+        ga=ungray(g)
+        print(chars[i],g,ga,grayScale([ga,ga,ga]))
+    print(colorMap)
+    t=encodeGray(grayScale([255,255,255]))
+    print(t,decodeGrey(t))
+
+if __name__ == "__main__":
+    main()

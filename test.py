@@ -85,7 +85,7 @@ def buildList():
     ind=0
     c=list()
     for i in range(6):
-        for j in range(6):
+        for j in range(18):
             l[i].append(ind)
             c.append(ind)
             ind+=1
@@ -96,7 +96,7 @@ def a():
     load,colors=buildList()
     print(load)
     i,j=2,2
-    width=6
+    width=18
     neighbours=[ colors[ width*(i-1) +j],colors[width*(i) +j-1],colors[width*(i-1) +j-1],colors[width*(i) +j],colors[width*(i) +j+1],colors[width*(i+1) +j+1],colors[width*(i+1) +j],colors[width*(i+1) +j-1], colors[width*(i-1) +j+1] ] #list of neighbors
     neighbours2=[ load[i-1][j],load[i][j-1],load[i-1][j-1],load[i][j],load[i][j+1],load[i+1][j+1],load[i+1][j],load[i+1][j-1], load[i-1][j+1] ] #list of neighbors
     #neighbours.sort()
