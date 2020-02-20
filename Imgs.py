@@ -7,6 +7,9 @@ from PIL import Image as img
 import math,random 
 import cv2 #didn't want to go through the trouble of redoing this a 100 times. 
 
+#global gamma
+gamma=0
+
 def convertImgToVid():
     img_array = []
     for filename in glob.glob(r"C:\Users\Devansh\Desktop\Projects\img\data\*.jpg"):
@@ -93,33 +96,40 @@ def predict(gr):
     @param: ungrayed pixel
     @return: the averaged vals
     """
+    global gamma
     r,g,b=0,0,0
     trainers=list(os.listdir(r"C:\Users\Devansh\Desktop\Projects\img\TrainedData"))
     d=r"C:\Users\Devansh\Desktop\Projects\img\TrainedData"
     l=len(trainers)
     i=0
     types=len(trainers)
-    gamma=0
     x=[gr]
+    pred=list()
     while(i< types ):
         t=d+"/"+ trainers[i]
         clf = joblib.load(t)
         pred=clf.predict(x)[0]
         
-        b+=pred[2]
-        g+=pred[1]
-        r+=pred[0]
+        b+=pred[2]/types
+        g+=pred[1]/types
+        r+=pred[0]/types
         
     
 
         i+=1
     #by adjusting the values and scaling them, we can reduce the effects of overfitting. 
-    gamma= (r +g + b)/255 +random.randrange(50,100) #optimize
+    gamma+=((0.2126 * r + 0.7152 * g + 0.0722 * b)/255) *(random.randrange(-300000,300000)/30000) #optimize (range will give a -10<val<10)
     print(gamma)
-    r=(random.randrange(int((r-gamma-1)),int(r+gamma)+1 ))/types
-    g=(random.randrange((int(g-gamma-1)),int(g+gamma)+1 ))/types
-    b=(random.randrange((int(b-gamma-1)),int(b+gamma)+1 ))/types
-    """
+    
+    if gamma>=0:
+        r=(random.randrange(int((r-gamma-1)),int(r+gamma)+1 ))
+        g=(random.randrange((int(g-gamma-1)),int(g+gamma)+1 ))
+        b=(random.randrange((int(b-gamma-1)),int(b+gamma)+1 ))
+    else:
+        r=(random.randrange(int((r+gamma-1)),int(r-gamma)+1 ))
+        g=(random.randrange((int(g+gamma-1)),int(g-gamma)+1 ))
+        b=(random.randrange((int(b+gamma-1)),int(b-gamma)+1 ))
+        """
     print("Created: ",r,g,b)
     correction=(.2126*random.randrange(0,int(r)+1)+.7152*random.randrange(0,int(g)+1)+0.722*random.randrange(0,int(b)+1))
     print(correction)
@@ -133,6 +143,7 @@ def predict(gr):
     print("Weighed", r,g,b)
     """
     prediction=[r,g,b]
+    
     for i in range (len(prediction)):
         if(prediction[i]>255):
             prediction[i]%=255 #build equivalence classes for predictions
@@ -140,7 +151,8 @@ def predict(gr):
             prediction[i]*=-1
             if(prediction[i]>255):
                 prediction[i]%=255 #build equivalence classes for predictions
-        
+        gamma+=(prediction[i]-pred[i])**2
+    gamma%=math.sqrt(abs(gamma)) #self correction with gamma
     return prediction 
 
 def blackAndWhite(height,width,name,ext):
