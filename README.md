@@ -10,6 +10,7 @@ to compress and transmit, a business would simply store the text on a server. On
 This will cut down the storage space required for any business. By saving the text of a grayscaled image (instead of fully colored one), a company
 (like AlgoExpert) will be able to really cut down storage space. The project is able to create the essence of the image but isn't able to capture the the subtelty of the relative shading between pixels. However, it is able to create a reasonable image, especially given the constraints<br>  </p><p>
     All in all, this project was really hard to do. Figuring out what I wanted took a lot of time. I spent almost all my free time(when I had the ability) working on the project and trying to take different approaches to solve this problem. I've rewritten almost the whole project from scratch multiple times to try multiple apporaches. However, I'm glad I did it. This project has taught me a lot, and I plan on seeing it through to completion. I'm glad that I could build a working proof of concept that
+  Youtube Vid: https://www.youtube.com/watch?v=6MP4v6LYO5g
 
 </p>
 
@@ -22,7 +23,6 @@ Looking for summer co-ops. Pls hire me.
 
 <h3>What this project does</h3>
 <p>
-  Youtube Vid: 
 This project converts a picture into text . While converting an image into text, it changes the image 
 into grayscale. Grayscaled texts require lesser space and easier to compress than colored ones since the grayscaling algorithm changes 
 [r,g,b]-->[val] where 0<=r,g,b<=255 and 0<=val<=1. Doing so changes a 3-dimensional space (r,g,b) into a single dimensional space. Therein lies
